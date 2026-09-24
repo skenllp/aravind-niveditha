@@ -1384,12 +1384,28 @@ updateParallax();
     if (p && p.catch) p.catch(() => {});
     sec.classList.add('video-playing');
     scheduleTextFade(sec);
+    /* Pause background music while a celebration video is visible */
+    if (typeof audioPlaying !== 'undefined' && audioPlaying && typeof audioEl !== 'undefined') {
+      audioEl.pause();
+      audioPlaying = false;
+      if (typeof musicBtn !== 'undefined') musicBtn.classList.remove('playing');
+      sec._pausedMusic = true;
+    }
   }
   function pauseVideo(sec){
     const video = sec._video;
     if (video && !video.paused) video.pause();
     sec.classList.remove('video-playing');
     resetTextFade(sec);
+    /* Resume background music only if this section was the one that paused it,
+       and no other celeb section is currently playing */
+    if (sec._pausedMusic) {
+      sec._pausedMusic = false;
+      const anyPlaying = sections.some(s => s.classList.contains('video-playing'));
+      if (!anyPlaying && typeof tryPlayAudio === 'function') {
+        tryPlayAudio();
+      }
+    }
   }
 
   /* ---- Fade the overlay text once the video is actually rolling, so the
