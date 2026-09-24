@@ -6,7 +6,7 @@ Adv. Aravind E B & Adv. Niveditha Prakasan.
 
 ## What's inside
 - `index.html` — the entire site (HTML + CSS + JS in one file, referencing the `assets/` folder)
-- `assets/video/` — `opening.mp4` (plays automatically as a cinematic section where the lotus reveal used to be), and one video per celebration (Haldi, Mehendi,
+- `assets/video/` — `opening.mp4` (plays on tap in the "Destiny Unfolds" section, with the tharavadu image as its cover), and one video per celebration (Haldi, Mehendi,
   Sangeeth, Thalikettu & Wedding, Reception)
 - `assets/images/` — Naadham-style backgrounds (01–07, reused from the reference), couple photographs, and auto-extracted poster
   stills for each celebration video, plus a ready `og-image.jpg` (1200×630) for WhatsApp/social sharing
@@ -43,7 +43,7 @@ Adv. Aravind E B & Adv. Niveditha Prakasan.
 
 ## Update: closer Naadham–Rishi fidelity
 - Backgrounds, gate/entrance and section mapping now use the reference site's own images (01–07), in the same section order and overlays.
-- The lotus tap-to-reveal interaction (HTML, CSS, JS, image and video) is removed. The "Destiny Unfolds" section now autoplays `opening.mp4` (muted, looping, starts when scrolled into view) with an optional sound button.
+- The lotus tap-to-reveal interaction (HTML, CSS, JS, image and video) is removed. The "Destiny Unfolds" section now shows the full wedding poster image as a "Tap To Reveal" cover; tapping it reveals and plays `opening.mp4` with sound (button to mute), and the cover returns when it ends.
 - The generated heritage-house image and the "Where Traditions Begin" section are removed.
 - Couple photos appear unedited in "Meet the Couple", "Our Journey" and the gallery.
 - Calendar: every event has Google Calendar + .ics (VALARM `TRIGGER:-P3D`), plus a combined .ics. Note: Google Calendar's web link cannot carry a reminder; the 3-day reminder is in the .ics files.

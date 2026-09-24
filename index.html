@@ -8,25 +8,25 @@
 
 <!-- Open Graph / Facebook / WhatsApp -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://aravind-niveditha.vercel.app/">
+<meta property="og:url" content="https://aravind-niveditha-1.vercel.app/">
 <meta property="og:title" content="Aravind & Niveditha | Wedding Invitation">
 <meta property="og:description" content="Join us as we celebrate our wedding on 04 January 2027.">
-<meta property="og:image" content="https://aravind-niveditha.vercel.app/assets/images/og-image.jpg">
-<meta property="og:image:secure_url" content="https://aravind-niveditha.vercel.app/assets/images/og-image.jpg">
+<meta property="og:image" content="https://aravind-niveditha-1.vercel.app/assets/images/og-image.jpg">
+<meta property="og:image:secure_url" content="https://aravind-niveditha-1.vercel.app/assets/images/og-image.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Aravind and Niveditha Wedding Invitation">
+<meta property="og:image:alt" content="The Wedding of Aravind and Niveditha, 04.01.2027">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://aravind-niveditha.vercel.app/">
+<meta property="twitter:url" content="https://aravind-niveditha-1.vercel.app/">
 <meta property="twitter:title" content="Aravind & Niveditha | Wedding Invitation">
 <meta property="twitter:description" content="Join us as we celebrate our wedding on 04 January 2027.">
-<meta property="twitter:image" content="https://aravind-niveditha.vercel.app/assets/images/og-image.jpg">
-<meta property="twitter:image:alt" content="Aravind and Niveditha Wedding Invitation">
+<meta property="twitter:image" content="https://aravind-niveditha-1.vercel.app/assets/images/og-image.jpg">
+<meta property="twitter:image:alt" content="The Wedding of Aravind and Niveditha, 04.01.2027">
 
-<link rel="canonical" href="https://aravind-niveditha.vercel.app/">
+<link rel="canonical" href="https://aravind-niveditha-1.vercel.app/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600;700&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
 <!-- Preload hero image for faster initial render -->
@@ -579,7 +579,7 @@ body.celeb-manual-mode .celeb-full:not(.video-playing) .celeb-tap-play{display:f
   p{font-size:1.05rem;line-height:1.65;}
   .lede{font-size:1.15rem;}
   .om{font-size:1.4rem;}
-}margin:.3rem 0 .6rem;}
+  .couple-card .role{margin:.3rem 0 .6rem;}
   .couple-card .parents{font-size:.85rem;}
   .couple-mid{width:44px;height:44px;}
   .couple-mid svg{width:18px;height:18px;}
@@ -587,9 +587,17 @@ body.celeb-manual-mode .celeb-full:not(.video-playing) .celeb-tap-play{display:f
 
 /* ---------- opening film (cinematic section, no interaction required) ---------- */
 .opening-film{position:relative;width:min(340px,80vw);aspect-ratio:9/16;margin:2.4rem auto 0;border-radius:14px;overflow:hidden;border:1px solid var(--glass-brd);box-shadow:0 0 70px rgba(217,184,119,.22),0 24px 60px rgba(0,0,0,.55);background:#140e08;}
-.opening-film video{width:100%;height:100%;object-fit:cover;display:block;}
+.opening-film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
 .film-vignette{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 60px rgba(20,14,8,.55);}
-.film-sound{position:absolute;right:.8rem;bottom:.8rem;width:38px;height:38px;border-radius:50%;border:1px solid var(--glass-brd);background:rgba(20,14,8,.55);color:var(--champagne);display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);}
+.film-cover{position:relative;display:block;width:min(720px,100%);aspect-ratio:1733/907;margin:2.4rem auto 0;padding:0;border-radius:14px;overflow:hidden;border:1px solid var(--glass-brd);box-shadow:0 0 70px rgba(217,184,119,.22),0 24px 60px rgba(0,0,0,.55);background:#140e08;cursor:pointer;transition:opacity .5s ease,transform .5s ease;}
+.film-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;}
+.film-cover.hide{opacity:0;transform:scale(.97);pointer-events:none;}
+.film-cover.gone,.opening-film.is-hidden{display:none;}
+.film-reveal-pill{position:absolute;left:50%;bottom:.9rem;transform:translateX(-50%);display:flex;align-items:center;gap:.55rem;padding:.6rem 1.2rem;border-radius:30px;border:1px solid rgba(245,239,226,.5);background:rgba(20,14,8,.6);backdrop-filter:blur(6px);color:var(--ivory);font-family:var(--display);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;animation:tapPulse 2s ease-in-out infinite;}
+.film-reveal-pill svg{width:14px;height:14px;}
+.film-cover:hover .film-reveal-pill{border-color:var(--gold);}
+.opening-film{transition:opacity .6s ease;}
+.film-sound{z-index:4;position:absolute;right:.8rem;bottom:.8rem;width:38px;height:38px;border-radius:50%;border:1px solid var(--glass-brd);background:rgba(20,14,8,.55);color:var(--champagne);display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);}
 .film-sound svg{width:18px;height:18px;}
 .film-sound .wave{opacity:0;transition:opacity .3s;}
 .film-sound.on .wave{opacity:1;}
@@ -975,8 +983,12 @@ body.celeb-manual-mode .celeb-full:not(.video-playing) .celeb-tap-play{display:f
     <span class="eyebrow reveal">Destiny Unfolds</span>
     <h2 class="display-lg reveal reveal-delay-1">Every Sacred Beginning Has Its <span class="script">Chosen</span> Moment</h2>
     <p class="reveal reveal-delay-2" style="margin-top:1rem;">Some moments are not decided by time. Time is chosen for them.</p>
-    <div class="opening-film reveal reveal-delay-3" id="opening-film">
-      <video id="opening-video" muted loop playsinline preload="metadata" poster="assets/images/opening-poster.jpg" src="assets/video/opening.mp4" aria-label="Opening film: Kerala wedding animation"></video>
+    <button class="film-cover reveal reveal-delay-3" id="film-cover" type="button" aria-label="Tap to reveal the opening film">
+      <img src="assets/images/destiny-cover.jpg" alt="The wedding of Aravind and Niveditha, 04.01.2027" width="1600" height="837">
+      <span class="film-reveal-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Tap To Reveal</span>
+    </button>
+    <div class="opening-film is-hidden" id="opening-film">
+      <video id="opening-video" playsinline preload="metadata" src="assets/video/opening.mp4" aria-label="Opening film: Kerala wedding animation"></video>
       <div class="film-vignette" aria-hidden="true"></div>
       <button class="film-sound" id="film-sound" type="button" aria-label="Turn film sound on">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="wave" d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/></svg>
@@ -1516,9 +1528,9 @@ updateParallax();
   });
 })();
 
-/* ================= OPENING FILM (autoplay when in view) ================= */
+/* ================= OPENING FILM (tap to reveal) ================= */
 (function(){
-  const film=document.getElementById('opening-video'), snd=document.getElementById('film-sound');
+  const film=document.getElementById('opening-video'), frame=document.getElementById('opening-film'), snd=document.getElementById('film-sound'), cover=document.getElementById('film-cover');
   if(!film) return;
   let resumeMusic=false;
   function setSound(on){
@@ -1527,11 +1539,24 @@ updateParallax();
     if(on && audioPlaying){ audioEl.pause(); audioPlaying=false; musicBtn.classList.remove('playing'); resumeMusic=true; }
     if(!on && resumeMusic){ resumeMusic=false; tryPlayAudio(); }
   }
+  function showCover(){
+    if(frame.classList.contains('is-hidden')) return;
+    film.pause(); setSound(false);
+    frame.classList.add('is-hidden');
+    cover.classList.remove('gone','hide');
+  }
+  cover.addEventListener('click',()=>{
+    cover.classList.add('hide');
+    setTimeout(()=>{
+      cover.classList.add('gone'); frame.classList.remove('is-hidden');
+      frame.scrollIntoView({behavior:'smooth',block:'center'});
+      film.currentTime=0; film.muted=false; setSound(true);
+      film.play().catch(()=>{ setSound(false); film.play().catch(()=>{}); });
+    },450);
+  });
   snd.addEventListener('click',()=>setSound(film.muted));
-  new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting){ film.play().catch(()=>{}); }
-    else { film.pause(); if(!film.muted) setSound(false); }
-  }),{threshold:.45}).observe(film);
+  film.addEventListener('ended',showCover);
+  new IntersectionObserver(es=>es.forEach(e=>{ if(!e.isIntersecting && !film.paused) showCover(); }),{threshold:.2}).observe(frame);
 })();
 
 /* ================= COUNTDOWN ================= */
