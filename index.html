@@ -1087,6 +1087,26 @@ function initLoader(){
   setTimeout(() => document.getElementById('loader').classList.add('hide'), 2500);
 }
 
+/* ================= MUSIC TOGGLE ================= */
+const audioEl = document.getElementById('bg-audio');
+const musicBtn = document.getElementById('music-toggle');
+let audioPlaying = false;
+function tryPlayAudio(){
+  audioEl.play().then(() => {
+    audioPlaying = true;
+    musicBtn.classList.add('playing');
+  }).catch(() => { /* no audio source provided yet — silent no-op */ });
+}
+musicBtn.addEventListener('click', () => {
+  if (audioPlaying) {
+    audioEl.pause();
+    audioPlaying = false;
+    musicBtn.classList.remove('playing');
+  } else {
+    tryPlayAudio();
+  }
+});
+
 /* ================= GATE / ENTER ================= */
 const gate = document.getElementById('gate');
 const mainSite = document.getElementById('main-site');
@@ -1106,7 +1126,6 @@ function openGate(){
   setTimeout(() => { try{ gateVideo.pause(); }catch(e){} }, 1400);
   mainSite.classList.add('show');
   document.body.style.overflow = 'auto';
-  tryPlayAudio();
   setTimeout(() => { gate.style.display = 'none'; }, 1400);
   // Announce to screen readers
   setTimeout(() => {
@@ -1128,6 +1147,7 @@ function startOpeningFilm(){
   gateVideo.muted = false; gateVideo.currentTime = 0;
   const p = gateVideo.play();
   if (p && p.catch) p.catch(() => { gateVideo.muted = true; gateVideo.play().catch(openGate); });
+  tryPlayAudio(); // Start background music when opening video starts
 }
 gateVideo.addEventListener('ended', openGate);
 gateVideo.addEventListener('error', () => { if (gateStarted) openGate(); });
@@ -1147,26 +1167,6 @@ document.addEventListener('keydown', (e) => {
 document.body.style.overflow = 'hidden';
 let gateScrollArmed = false;
 /* scroll no longer skips the opening film (sound needs a tap) */
-
-/* ================= MUSIC TOGGLE ================= */
-const audioEl = document.getElementById('bg-audio');
-const musicBtn = document.getElementById('music-toggle');
-let audioPlaying = false;
-function tryPlayAudio(){
-  audioEl.play().then(() => {
-    audioPlaying = true;
-    musicBtn.classList.add('playing');
-  }).catch(() => { /* no audio source provided yet — silent no-op */ });
-}
-musicBtn.addEventListener('click', () => {
-  if (audioPlaying) {
-    audioEl.pause();
-    audioPlaying = false;
-    musicBtn.classList.remove('playing');
-  } else {
-    tryPlayAudio();
-  }
-});
 
 /* ================= CUSTOM CURSOR ================= */
 const cursorDot = document.getElementById('cursor-dot');
