@@ -344,7 +344,7 @@ p{font-size:clamp(1.05rem,1.5vw,1.25rem);font-weight:400;line-height:1.7;color:r
 
 /* ---------- cinematic full-screen celebrations ---------- */
 .celeb-full{
-  position:relative;min-height:100vh;width:100%;overflow:hidden;
+  position:relative;min-height:100vh;min-height:100svh;width:100%;overflow:hidden;
   display:flex;align-items:flex-end;justify-content:flex-start;
   padding:0;
 }
@@ -1228,30 +1228,63 @@ updateParallax();
   sections.forEach(sec => {
     sec._video = sec.querySelector('video.celeb-video-bg');
     sec._loaded = false;
+    sec._wantPlay = false;
+    const v = sec._video;
+    if (v) {
+      // iOS Safari needs these as real attributes/properties, not just markup
+      v.muted = true; v.defaultMuted = true; v.playsInline = true;
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+      v.disablePictureInPicture = true;
+      // Reveal the video only once frames are really being rendered
+      v.addEventListener('playing', () => { if (sec._wantPlay) sec.classList.add('video-playing'); });
+      v.addEventListener('error', () => { sec._loaded = false; sec.classList.remove('video-playing'); });
+    }
   });
 
   function loadVideo(sec){
     const video = sec._video;
     if (!video || sec._loaded) return;
     sec._loaded = true;
+    video.preload = 'auto';
     video.src = video.getAttribute('data-src');
     video.load();
+  }
+  function tryPlay(sec, attempt){
+    const video = sec._video;
+    if (!video || !sec._wantPlay) return;
+    video.muted = true;
+    const p = video.play();
+    if (p && p.catch) p.catch(() => {
+      // Autoplay blocked (Low Power Mode, data saver) or not ready yet: retry shortly
+      if (attempt < 4) setTimeout(() => tryPlay(sec, attempt + 1), 400 * (attempt + 1));
+      else sec._needsGesture = true;
+    });
   }
   function playVideo(sec){
     const video = sec._video;
     if (!video) return;
+    sec._wantPlay = true;
     if (!sec._loaded) loadVideo(sec);
-    const p = video.play();
-    if (p && p.catch) p.catch(() => {});
-    sec.classList.add('video-playing');
+    else if (video.error) { sec._loaded = false; loadVideo(sec); }
+    tryPlay(sec, 0);
+    if (video.readyState < 3) video.addEventListener('canplay', () => tryPlay(sec, 0), { once: true });
     scheduleTextFade(sec);
   }
   function pauseVideo(sec){
     const video = sec._video;
+    sec._wantPlay = false;
     if (video && !video.paused) video.pause();
     sec.classList.remove('video-playing');
     resetTextFade(sec);
   }
+  // If the browser blocked autoplay, the first touch/scroll/click starts the visible chapter
+  ['touchstart','touchend','click','scroll'].forEach(evt => {
+    window.addEventListener(evt, () => {
+      sections.forEach(sec => {
+        if (sec._wantPlay && sec._video && sec._video.paused) tryPlay(sec, 0);
+      });
+    }, { passive: true });
+  });
 
   function scheduleTextFade(sec){
     clearTimeout(sec._fadeTimer);
